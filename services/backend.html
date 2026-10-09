@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend Engineering | Vernexa</title>
+  <meta name="description" content="We build highly scalable, fast, and secure API gateways, databases, and microservices databases utilizing Node.js, Express, PostgreSQL, and Redis.">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3Cpolygon points='46,14 62,14 26,78 12,78' fill='%23002458'/%3E%3Cpolygon points='32,14 48,14 72,56 60,56' fill='%2300b4c4'/%3E%3Cpolygon points='56,52 70,52 86,78 72,78' fill='%2300b4c4'/%3E%3Ccircle cx='18' cy='22' r='4' fill='%2300b4c4'/%3E%3Cpath d='M18,22 L30,22 L38,36' stroke='%2300b4c4' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='84' cy='72' r='4' fill='%2300b4c4'/%3E%3Cpath d='M62,60 L74,60 L84,72' stroke='%2300b4c4' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    /* Subpage Custom Styles */
+    .subpage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .blueprint-card, .deliverable-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .blueprint-card:hover, .deliverable-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-5px);
+      background: rgba(99, 102, 241, 0.02);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.7);
+    }
+    .tech-badge {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--color-primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    
+    /* Timeline Roadmap */
+    .roadmap-timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 3rem auto 0 auto;
+      padding-left: 2.5rem;
+      border-left: 2px solid var(--color-border);
+    }
+    .roadmap-step {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+    .roadmap-step:last-child {
+      margin-bottom: 0;
+    }
+    .roadmap-node {
+      position: absolute;
+      left: -3.2rem;
+      top: 0.2rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 3px solid var(--color-primary);
+      box-shadow: 0 0 15px var(--color-primary);
+    }
+    .roadmap-step:hover .roadmap-node {
+      background: var(--color-primary);
+      transform: scale(1.2);
+      transition: all 0.3s ease;
+    }
+    .roadmap-content {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+    }
+    .roadmap-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .roadmap-num {
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    .roadmap-duration {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* FAQs */
+    .faq-accordion-details {
+      max-width: 800px;
+      margin: 3rem auto 0 auto;
+    }
+    details.faq-item-details {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    details.faq-item-details[open] {
+      border-color: var(--color-primary);
+      background: rgba(99, 102, 241, 0.02);
+      box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+    }
+    summary.faq-summary {
+      font-weight: 600;
+      font-size: 1.1rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-primary);
+    }
+    summary.faq-summary::-webkit-details-marker {
+      display: none;
+    }
+    summary.faq-summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      transition: transform 0.3s ease;
+      font-weight: 300;
+    }
+    details.faq-item-details[open] summary.faq-summary::after {
+      content: '−';
+      transform: rotate(180deg);
+      color: var(--color-primary);
+    }
+    .faq-answer {
+      margin-top: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1rem;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body class="subpage">
+
+  <!-- Background Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <!-- Header -->
+  <header class="scrolled">
+    <div class="container header-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">
+          <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="46,14 62,14 26,78 12,78" fill="#002458" />
+            <polygon points="60,14 74,14 42,70 30,70" fill="#002458" />
+            <polygon points="32,14 48,14 72,56 60,56" fill="#00b4c4" />
+            <polygon points="56,52 70,52 86,78 72,78" fill="#00b4c4" />
+            <path d="M18,22 L30,22 L38,36" stroke="#00b4c4" stroke-width="2.5" stroke-linecap="round" fill="none" />
+            <circle cx="18" cy="22" r="3" fill="#00b4c4" />
+            <circle cx="38" cy="36" r="2.5" fill="#00b4c4" />
+            <path d="M24,34 L34,34 L40,44" stroke="#00b4c4" stroke-width="2.5" stroke-linecap="round" fill="none" />
+            <circle cx="24" cy="34" r="2.5" fill="#00b4c4" />
+            <circle cx="40" cy="44" r="2" fill="#00b4c4" />
+            <path d="M62,60 L74,60 L84,72" stroke="#00b4c4" stroke-width="2.5" stroke-linecap="round" fill="none" />
+            <circle cx="84" cy="72" r="2.5" fill="#00b4c4" />
+          </svg>
+        </div>
+        <div class="logo-text">Verne<span class="logo-x">x</span>a</div>
+      </a>
+      <div class="nav-cta">
+        <a href="../index.html" class="btn btn-secondary">← Back to Home</a>
+        <a href="../index.html#contact" class="btn btn-primary">Start Your Project</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero subpage header -->
+  <section class="hero" style="min-height: 50vh; padding-top: 10rem; padding-bottom: 4rem;">
+    <div class="container" style="text-align: center; max-width: 800px;">
+      <div class="hero-badge">Backend Engineering</div>
+      <h1 class="hero-title gradient-text" style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem;">Scalable Systems & APIs</h1>
+      <p class="hero-desc" style="margin-left: auto; margin-right: auto;">We engineer resilient, scalable server-side systems designed for multi-million user traffic loads. By implementing clean architecture paradigms, advanced data models, and edge caching mechanisms, we guarantee peak server responses and bulletproof reliability.</p>
+    </div>
+  </section>
+
+  <!-- Capabilities grid -->
+  <section class="section-padding" style="background-color: var(--bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">What We Can Do</span>
+        <h2 class="section-title">Robust Backend Infrastructure</h2>
+        <p class="section-desc">We design high-performance service networks. Here is a breakdown of our technical capabilities:</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card glass-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+          </div>
+          <h3>API Gateway & Routes</h3>
+          <p>Designing RESTful APIs, GraphQL schemas, or gRPC interfaces with strict request validation, auto-documentation (Swagger/OpenAPI), and rate limit filters.</p>
+        </div>
+
+        <div class="service-card glass-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+          </div>
+          <h3>Database & Caching</h3>
+          <p>Optimizing complex relational schemas (PostgreSQL) and NoSQL datasets (MongoDB). Implementing Redis database caching to reduce repeat query delays to under 5 milliseconds.</p>
+        </div>
+
+        <div class="service-card glass-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          </div>
+          <h3>Payment Gateway Engines</h3>
+          <p>Building secure billing flows via Stripe, Razorpay, or custom payment solutions. Configuring webhook verification keys, transaction tables, and audit ledgers.</p>
+        </div>
+
+        <div class="service-card glass-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3>Asynchronous Worker Queues</h3>
+          <p>Implementing BullMQ or RabbitMQ to execute intensive workloads (PDF generation, bulk emails, image resizing) in background worker threads without clogging primary threads.</p>
+        </div>
+
+        <div class="service-card glass-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3>Security & Data Encryption</h3>
+          <p>Configuring end-to-end data encryption (AES-256), hashing passwords using bcrypt algorithms, and deploying firewalls with automated CORS policy blocks.</p>
+        </div>
+
+        <div class="service-card glass-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          </div>
+          <h3>Real-time WebSockets</h3>
+          <p>Developing low-latency messaging, notifications, and location feeds utilizing socket.io or raw WebSocket configurations, syncing multiple clients dynamically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Stack Section -->
+  <section class="section-padding" style="border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Technology & Architecture</span>
+        <h2 class="section-title">Backend Architecture Stack</h2>
+        <p class="section-desc">We implement fast, thread-safe, and scalable configurations to process backend data securely.</p>
+      </div>
+
+      <div class="subpage-grid">
+        <div class="blueprint-card">
+          <span class="tech-badge">Execution Runtime</span>
+          <h3>Node.js & TypeScript</h3>
+          <p>Leveraging JavaScript's non-blocking I/O event loops combined with type-safety guarantees to run microservice engines cleanly.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <span class="tech-badge">Relational DB</span>
+          <h3>PostgreSQL</h3>
+          <p>Deploying PostgreSQL for atomic transactional records. Designing index maps, partitioning tables, and deploying read replicas.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <span class="tech-badge">In-Memory Cache</span>
+          <h3>Redis Database</h3>
+          <p>Caching API payloads and session maps. Running key-value cache lookups to reduce API server database queries by up to 80%.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <span class="tech-badge">API Framework</span>
+          <h3>NestJS & Express</h3>
+          <p>Structuring modular routes and interceptors. NestJS ensures clean dependency injection, which simplifies unit tests configurations.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <span class="tech-badge">Asynchronous Workers</span>
+          <h3>BullMQ & Redis</h3>
+          <p>Offloading background processing to sandbox worker queues. Tasks like emails, PDF generation, and log processing execute asynchronously.</p>
+        </div>
+
+        <div class="blueprint-card">
+          <span class="tech-badge">Isolation Container</span>
+          <h3>Docker Engine</h3>
+          <p>Packaging application layers into container files. Standardizing staging deployment parameters and runtime libraries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap Section -->
+  <section class="section-padding" style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Roadmap Milestones</span>
+        <h2 class="section-title">Backend Delivery Roadmap</h2>
+        <p class="section-desc">A detailed step-by-step timeline of our backend architectural build workflow.</p>
+      </div>
+
+      <div class="roadmap-timeline">
+        <div class="roadmap-step">
+          <div class="roadmap-node"></div>
+          <div class="roadmap-content">
+            <div class="roadmap-meta">
+              <span class="roadmap-num">MILESTONE 01</span>
+              <span class="roadmap-duration">Week 1-2</span>
+            </div>
+            <h3>Database Design & Schema Mapping</h3>
+            <p>Creating entity relationship diagrams (ERD) and version-controlled database migrations. Setting up test database instances on staging networks.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="roadmap-node"></div>
+          <div class="roadmap-content">
+            <div class="roadmap-meta">
+              <span class="roadmap-num">MILESTONE 02</span>
+              <span class="roadmap-duration">Week 3-4</span>
+            </div>
+            <h3>API Scaffolding & Security Layer Configuration</h3>
+            <p>Coding route structures, JWT authentication interceptors, CORS controls, and parameter validation middleware.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="roadmap-node"></div>
+          <div class="roadmap-content">
+            <div class="roadmap-meta">
+              <span class="roadmap-num">MILESTONE 03</span>
+              <span class="roadmap-duration">Week 5-6</span>
+            </div>
+            <h3>Worker Queues & Third-Party API Connectors</h3>
+            <p>Integrating Redis, BullMQ job queues, Stripe webhooks billing logic, and email triggers.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="roadmap-node"></div>
+          <div class="roadmap-content">
+            <div class="roadmap-meta">
+              <span class="roadmap-num">MILESTONE 04</span>
+              <span class="roadmap-duration">Week 7</span>
+            </div>
+            <h3>Performance Optimization & Load Tests</h3>
+            <p>Executing stress load runs with custom scripts. Creating indexes, configuring cache mappings, and resolving bottlenecks.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-step">
+          <div class="roadmap-node"></div>
+          <div class="roadmap-content">
+            <div class="roadmap-meta">
+              <span class="roadmap-num">MILESTONE 05</span>
+              <span class="roadmap-duration">Week 8</span>
+            </div>
+            <h3>Production Launch & Repository Handoff</h3>
+            <p>Spinning cloud servers, database backups schedules, SSL validations, and transferring repository credentials.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deliverables Section -->
+  <section class="section-padding" style="border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Handoff Assets</span>
+        <h2 class="section-title">Your Project Deliverables</h2>
+        <p class="section-desc">Vernexa assigns full intellectual property ownership of all server code files directly to your company.</p>
+      </div>
+
+      <div class="subpage-grid">
+        <div class="deliverable-card">
+          <h3>1. 100% IP & Github Repository</h3>
+          <p>Repository transfer featuring modular NestJS/Express structures, fully typed TypeScript code, and documented setup scripts.</p>
+        </div>
+
+        <div class="deliverable-card">
+          <h3>2. Interactive API Specs</h3>
+          <p>Complete Postman collection files and interactive Swagger/OpenAPI dashboards listing all endpoints, payload structures, and auth codes.</p>
+        </div>
+
+        <div class="deliverable-card">
+          <h3>3. Database Migration History</h3>
+          <p>SQL migration files mapping all structural database modifications. Setup guides to spin up replication clusters.</p>
+        </div>
+
+        <div class="deliverable-card">
+          <h3>4. Staging Compose Scripts</h3>
+          <p>Docker Compose scripts to spin up Express, Postgres, and Redis containers inside localized networks with one terminal run.</p>
+        </div>
+
+        <div class="deliverable-card">
+          <h3>5. 30-Day Support Warranty</h3>
+          <p>Complimentary error checks, query performance tuning, security checks, and patch correction operations.</p>
+        </div>
+
+        <div class="deliverable-card">
+          <h3>6. Modular Maintenance SLA</h3>
+          <p>Maintenance support to manage database migrations, version bumps, server logs checks, and quick scaling requests.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section-padding" style="background-color: var(--bg-secondary); border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">FAQ</span>
+        <h2 class="section-title">Backend Engineering FAQs</h2>
+        <p class="section-desc">Common questions regarding API security protocols, database scalability, and concurrency tuning.</p>
+      </div>
+
+      <div class="faq-accordion-details">
+        <details class="faq-item-details">
+          <summary class="faq-summary">How do you protect database and API endpoints from malicious attacks?</summary>
+          <div class="faq-answer">
+            We follow OWASP standards. We secure paths using cryptographically signed JSON Web Tokens (JWT), enforce strict CORS controls, configure parameterized queries to prevent SQL injections, and deploy rate-limiting middleware to shield servers from DDoS spam.
+          </div>
+        </details>
+
+        <details class="faq-item-details">
+          <summary class="faq-summary">Which database framework do you recommend for SaaS portals?</summary>
+          <div class="faq-answer">
+            For transactions, PostgreSQL provides ACID reliability. For rapid document caches or real-time event logs, MongoDB or Redis are utilized. We design hybrid architectures to leverage the strengths of each.
+          </div>
+        </details>
+
+        <details class="faq-item-details">
+          <summary class="faq-summary">How does the system handle sudden traffic surges?</summary>
+          <div class="faq-answer">
+            We configure database connection pooling and query result caching in Redis. For server processing, container nodes run behind Nginx load balancers, distributing requests across active container instances automatically.
+          </div>
+        </details>
+
+        <details class="faq-item-details">
+          <summary class="faq-summary">How do we edit or add database fields after launch?</summary>
+          <div class="faq-answer">
+            All databases leverage migration systems. Structural updates are documented in incremental code files. Applying changes is as simple as executing `db-migrate` in the deployment timeline.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA section -->
+  <section class="section-padding" style="text-align: center;">
+    <div class="container" style="max-width: 700px;">
+      <h2 class="section-title gradient-text" style="margin-bottom: 1rem;">Ready to Build Your Backend Solution?</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2.5rem;">Connect with our senior engineering team to get a detailed technical architecture and roadmap checklist today.</p>
+      <a href="../index.html#contact" class="btn btn-primary">Book a Free Strategy Call</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 3rem 0; border-top: 1px solid var(--color-border);">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>&copy; 2026 Vernexa. All rights reserved.</div>
+      <div style="display: flex; gap: 2rem;">
+        <a href="../index.html" style="color: var(--text-muted); text-decoration: none;">Home</a>
+        <a href="../index.html#services" style="color: var(--text-muted); text-decoration: none;">Services</a>
+        <a href="../index.html#contact" style="color: var(--text-muted); text-decoration: none;">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
